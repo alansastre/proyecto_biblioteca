@@ -1,0 +1,99 @@
+<!-- book-detail.html — Full book view with reviews, favorites, purchase and admin actions -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${book.title}">Libro</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <section class="page-hero mb-4">
+            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
+                <div>
+                    <h1 class="mb-2" th:text="${book.title}">Libro</h1>
+                    <p class="section-subtitle mb-0">Información del libro, reseñas y opciones de compra.</p>
+                </div>
+                <div class="text-lg-end">
+                    <span class="badge text-bg-light px-3 py-2" th:text="${book.price != null ? book.price + ' EUR' : 'Precio no disponible'}"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Definition List (dl/dt/dd): patron de Bootstrap para mostrar pares clave-valor -->
+        <div class="surface-panel p-4 mb-4">
+            <dl class="row mb-0">
+                <dt class="col-sm-2">Autor</dt>
+                <dd class="col-sm-10"><a th:href="@{/authors/{id}(id=${book.author.id})}" th:text="${book.author.name}"></a></dd>
+
+                <dt class="col-sm-2">Precio</dt>
+                <dd class="col-sm-10" th:text="${book.price != null ? book.price + ' EUR' : '-'}"></dd>
+
+                <dt class="col-sm-2">ISBN</dt>
+                <dd class="col-sm-10" th:text="${book.isbn}"></dd>
+
+                <dt class="col-sm-2">Páginas</dt>
+                <dd class="col-sm-10" th:text="${book.pages}"></dd>
+
+                <dt class="col-sm-2">Idioma</dt>
+                <dd class="col-sm-10" th:text="${book.language}"></dd>
+
+                <dt class="col-sm-2">Sinopsis</dt>
+                <dd class="col-sm-10 mb-0" th:text="${book.synopsis}"></dd>
+            </dl>
+        </div>
+
+        <!-- Reseñas del libro: itera sobre la colección OneToMany -->
+        <h2 class="h4">Reviews</h2>
+        <div class="list-group mb-4" th:if="${!#lists.isEmpty(book.reviews)}">
+            <div class="list-group-item p-4" th:each="r : ${book.reviews}">
+                <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                    <div>
+                        <strong th:text="${r.user != null ? r.user.username : 'Anónimo'}">usuario</strong>
+                        <div class="small text-muted" th:text="${#temporals.format(r.createdAt, 'dd/MM/yyyy HH:mm')}">fecha</div>
+                    </div>
+                    <span class="badge text-bg-light align-self-start" th:text="${r.rating} + ' / 5'">5 / 5</span>
+                </div>
+                <p class="mb-0 mt-3" th:text="${r.comment}"></p>
+            </div>
+        </div>
+        <div class="surface-panel p-4 text-center text-muted mb-4" th:if="${#lists.isEmpty(book.reviews)}">
+            Aún no hay reseñas para este libro.
+        </div>
+
+        <!-- Acciones para usuarios autenticados: favoritos y compra -->
+        <div th:if="${isAuthenticated}" class="my-3">
+            <!-- Botón "Añadir a favoritos" (solo si NO es favorito) -->
+            <form th:action="@{/books/{id}/favorite(id=${book.id})}" method="post" class="d-inline" th:if="${!isFavorite}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-outline-primary" data-testid="btn-add-favorite">Añadir a favoritos</button>
+            </form>
+            <!-- Botón "Quitar de favoritos" (solo si YA es favorito) -->
+            <form th:action="@{/books/{id}/favorite/remove(id=${book.id})}" method="post" class="d-inline" th:if="${isFavorite}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-outline-secondary" data-testid="btn-remove-favorite">Quitar de favoritos</button>
+            </form>
+            <!-- Botón de compra -->
+            <form th:action="@{/books/{id}/buy(id=${book.id})}" method="post" class="d-inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-success" data-testid="btn-buy">Comprar</button>
+            </form>
+        </div>
+
+        <!-- Acciones de administración: editar y eliminar -->
+        <div class="d-flex gap-2 flex-wrap" th:if="${isAdmin}">
+            <a th:href="@{/books/{id}/edit(id=${book.id})}" class="btn btn-secondary">Editar</a>
+            <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post" class="d-inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+
+        <p><a th:href="@{/books}">Volver a libros</a></p>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

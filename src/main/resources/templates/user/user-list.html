@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Usuarios</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <h1>Usuarios</h1>
+        <table class="table table-striped">
+            <thead><tr><th>Id</th><th>Usuario</th><th>Email</th><th>Rol</th><th></th></tr></thead>
+            <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.id}"></td>
+                    <td><a th:href="@{/users/{id}(id=${u.id})}" th:text="${u.username}"></a></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.role}"></td>
+                    <td><a th:href="@{/users/{id}(id=${u.id})}" class="btn btn-sm btn-outline-primary">Ver</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

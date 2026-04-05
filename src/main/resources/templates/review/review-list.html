@@ -1,0 +1,71 @@
+<!-- review-list.html — Reviews table with rating filter and owner-only edit/delete -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Reviews</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <section class="page-hero mb-4">
+            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-lg-end">
+                <div>
+                    <h1 class="mb-2">Reviews</h1>
+                    <p class="section-subtitle mb-0">Reseñas de la comunidad. Filtra por valoración.</p>
+                </div>
+                <p class="mb-0 text-muted" th:text="|${#lists.size(reviews)} reviews|">0 reviews</p>
+            </div>
+        </section>
+
+        <!-- Filtro por valoración -->
+        <form method="get" class="row g-2 mb-3">
+            <div class="col-auto">
+                <select name="rating" class="form-select">
+                    <option value="">-- Valoracion --</option>
+                    <option th:each="i : ${#numbers.sequence(1,5)}" th:value="${i}" th:text="${i} + ' *'"
+                            th:selected="${param.rating != null && param.rating[0] == i.toString()}"></option>
+                </select>
+            </div>
+            <div class="col-auto"><button type="submit" class="btn btn-secondary">Filtrar</button></div>
+        </form>
+
+        <p th:if="${isAuthenticated}"><a th:href="@{/reviews/create}" class="btn btn-primary">Nueva review</a></p>
+
+        <table class="table table-striped" data-testid="reviews-table">
+            <thead>
+                <tr>
+                    <th>Libro</th><th>Usuario</th><th>Valoracion</th><th>Comentario</th>
+                    <th th:if="${isAuthenticated}">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${reviews}">
+                    <td><a th:href="@{/books/{id}(id=${r.book.id})}" th:text="${r.book.title}"></a></td>
+                    <td th:text="${r.user.username}"></td>
+                    <td th:text="${r.rating} + ' *'"></td>
+                    <td th:text="${#strings.abbreviate(r.comment, 50)}"></td>
+                    <!-- Solo el autor de la reseña puede editar/eliminar -->
+                    <td th:if="${isAuthenticated}">
+                        <th:block th:if="${currentUsername != null && r.user.username == currentUsername}">
+                            <a th:href="@{/reviews/{id}/edit(id=${r.id})}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                            <form th:action="@{/reviews/{id}/delete(id=${r.id})}" method="post" class="d-inline">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </th:block>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="surface-panel p-4 text-center text-muted" th:if="${#lists.isEmpty(reviews)}">
+            Aún no hay reseñas para este filtro.
+        </div>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

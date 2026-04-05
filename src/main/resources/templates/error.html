@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Error</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container my-5 text-center">
+        <h1 th:text="${status}">Error</h1>
+        <p th:text="${error}">Ha ocurrido un error.</p>
+        <a th:href="@{/}" class="btn btn-primary">Volver al inicio</a>
+    </div>
+</body>
+</html>

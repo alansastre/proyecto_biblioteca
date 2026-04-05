@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Spring Boot 4 como proyecto padre: gestiona versiones de todas las dependencias -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.3</version>
+		<relativePath/> <!-- Buscar en repositorio Maven, no en directorio local -->
+	</parent>
+
+	<groupId>com.certidevs</groupId>
+	<artifactId>biblioteca</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Biblioteca</name>
+	<description>Proyecto docente de biblioteca digital con Spring Boot 4 y Java 25</description>
+
+	<properties>
+		<java.version>25</java.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- ══════════════════════════════════════════════════════ -->
+		<!-- SPRING BOOT STARTERS (agrupan dependencias comunes)  -->
+		<!-- ══════════════════════════════════════════════════════ -->
+
+		<!-- Spring Data JPA: ORM con Hibernate para acceso a base de datos -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Thymeleaf: motor de plantillas HTML para renderizado del lado servidor -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Spring MVC: framework web para controladores y vistas -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+
+		<!-- Spring Security: autenticacion, autorizacion y proteccion CSRF -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Bean Validation: anotaciones @NotBlank, @Email, @Size, @Min, @Max, etc. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- ══════════════════════════════════════ -->
+		<!-- BASE DE DATOS                         -->
+		<!-- ══════════════════════════════════════ -->
+
+		<!-- Consola web H2: accesible en /h2-console para inspeccionar la BD en desarrollo -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-h2console</artifactId>
+		</dependency>
+
+		<!-- H2: base de datos en memoria para desarrollo (no requiere instalacion) -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- ══════════════════════════════════════ -->
+		<!-- UTILIDADES                             -->
+		<!-- ══════════════════════════════════════ -->
+
+		<!-- Lombok: genera getters, setters, constructores, builders, etc. en compilacion -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Thymeleaf + Spring Security: etiquetas sec:authorize en plantillas HTML -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
+		<!-- Bootstrap 5 via WebJars: CSS framework servido desde el classpath Java -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>5.3.3</version>
+		</dependency>
+
+		<!-- WebJars Locator: resuelve automaticamente las versiones en las URLs de los WebJars -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator-core</artifactId>
+		</dependency>
+
+		<!-- ══════════════════════════════════════ -->
+		<!-- TESTING                                -->
+		<!-- ══════════════════════════════════════ -->
+
+		<!-- Spring Boot Test: JUnit Jupiter, Mockito, AssertJ, MockMvc, etc. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring Boot 4: test slices en modulos separados -->
+		<!-- @DataJpaTest para tests de repositorio (solo carga JPA, no el servidor web) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- @AutoConfigureMockMvc para tests de controlador (simula peticiones HTTP) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring Security Test: utilidades como @WithMockUser para tests de seguridad -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Selenium: tests de interfaz de usuario (E2E) con navegador real -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUnit Platform Suite: permite crear una clase @Suite que agrupa todos los tests -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Compilador Maven: configura Lombok como procesador de anotaciones -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<!-- ═══════════════════════════════════════════════════════ -->
+			<!-- JaCoCo: analisis de cobertura de tests (code coverage) -->
+			<!-- ═══════════════════════════════════════════════════════ -->
+			<!--
+			  JaCoCo mide que porcentaje del codigo fuente se ejecuta durante los tests.
+			  Genera un informe HTML en target/site/jacoco/index.html
+
+			  Ejecutar:
+			    ./mvnw test                              (ejecuta tests + recoge datos)
+			    ./mvnw jacoco:report                     (genera el informe HTML)
+			    ./mvnw verify                            (ejecuta tests + informe + check)
+
+			  En IntelliJ IDEA:
+			    Click derecho en test → "Run with Coverage" (boton con escudo verde)
+			    Esto muestra las lineas cubiertas directamente en el editor.
+
+			  Metricas clave:
+			    - Line Coverage: porcentaje de lineas ejecutadas.
+			    - Branch Coverage: porcentaje de ramas if/else cubiertas.
+			    - Instruction Coverage: porcentaje de instrucciones bytecode ejecutadas.
+			-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.13</version>
+				<executions>
+					<!-- Fase 1: prepara el agente JaCoCo antes de ejecutar los tests -->
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- Fase 2: genera el informe HTML tras ejecutar los tests -->
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Plugin de Spring Boot: empaqueta la aplicacion como JAR ejecutable -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

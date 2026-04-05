@@ -1,0 +1,70 @@
+<!-- index.html — Dashboard with statistics and quick navigation links -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Biblioteca</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <section class="page-hero mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <h1 class="display-6 mb-3">Biblioteca digital</h1>
+                    <p class="lead mb-3">Gestiona el catálogo completo: libros, autores, categorías, reseñas, autenticación, perfiles de usuario y panel de administración.</p>
+                    <p class="section-subtitle mb-0">Aplicación web construida con Spring Boot 4, Spring Data JPA, Spring Security y Thymeleaf.</p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="surface-panel p-4">
+                        <h2 class="h5 mb-3">Accesos rápidos</h2>
+                        <div class="d-grid gap-2">
+                            <a th:href="@{/books}" class="btn btn-primary">Entrar al catálogo</a>
+                            <a th:href="@{/reviews}" class="btn btn-outline-primary">Ver reviews</a>
+                            <a th:href="@{/register}" class="btn btn-outline-secondary">Crear una cuenta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards con estadísticas: usan el sistema de grid de Bootstrap (row > col-md-4) -->
+        <div class="row g-3 my-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Libros</h5>
+                        <p class="card-text display-6" th:text="${bookCount}">0</p>
+                        <p class="text-muted mb-3">Catálogo con detalle, favoritos, compra y reseñas.</p>
+                        <a th:href="@{/books}" class="btn btn-primary">Ver libros</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Autores</h5>
+                        <p class="card-text display-6" th:text="${authorCount}">0</p>
+                        <p class="text-muted mb-3">Consulta fichas de autor y los libros asociados.</p>
+                        <a th:href="@{/authors}" class="btn btn-primary">Ver autores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Categorías</h5>
+                        <p class="card-text display-6" th:text="${categoryCount}">0</p>
+                        <p class="text-muted mb-3">Organiza el catálogo y navega por la taxonomia.</p>
+                        <a th:href="@{/categories}" class="btn btn-primary">Ver categorías</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,1086 @@
+{
+  "id": "b1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "version": "2.0",
+  "name": "Biblioteca - Tests Selenium IDE",
+  "url": "http://localhost:8080",
+  "tests": [
+    {
+      "id": "t001-home-page",
+      "name": "01 - Pagina principal carga correctamente",
+      "commands": [
+        {
+          "id": "c001",
+          "command": "open",
+          "target": "/",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c002",
+          "command": "assertTitle",
+          "target": "Biblioteca",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c003",
+          "command": "assertText",
+          "target": "css=[data-testid='nav-home-brand']",
+          "targets": [["css=[data-testid='nav-home-brand']", "css:data-testid"]],
+          "value": "Biblioteca"
+        },
+        {
+          "id": "c004",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='nav-books']",
+          "targets": [["css=[data-testid='nav-books']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c005",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='nav-authors']",
+          "targets": [["css=[data-testid='nav-authors']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c006",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='nav-login']",
+          "targets": [["css=[data-testid='nav-login']", "css:data-testid"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t002-books-catalog",
+      "name": "02 - Catalogo de libros es publico y muestra libros",
+      "commands": [
+        {
+          "id": "c010",
+          "command": "open",
+          "target": "/books",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c011",
+          "command": "assertText",
+          "target": "css=h1",
+          "targets": [["css=h1", "css"]],
+          "value": "Libros"
+        },
+        {
+          "id": "c012",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='book-cards'] .card",
+          "targets": [["css=[data-testid='book-cards'] .card", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c013",
+          "command": "assertText",
+          "target": "css=[data-testid='book-cards'] .card:first-child .card-title a",
+          "targets": [],
+          "value": "regexp:.+"
+        }
+      ]
+    },
+    {
+      "id": "t003-book-detail",
+      "name": "03 - Detalle de libro muestra informacion completa",
+      "commands": [
+        {
+          "id": "c020",
+          "command": "open",
+          "target": "/books/1",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c021",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Cien"
+        },
+        {
+          "id": "c022",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Garcia Marquez"
+        },
+        {
+          "id": "c023",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Ficha completa del libro"
+        }
+      ]
+    },
+    {
+      "id": "t004-authors-list",
+      "name": "04 - Listado de autores es publico",
+      "commands": [
+        {
+          "id": "c030",
+          "command": "open",
+          "target": "/authors",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c031",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Autores"
+        },
+        {
+          "id": "c032",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Garcia Marquez"
+        },
+        {
+          "id": "c033",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Borges"
+        }
+      ]
+    },
+    {
+      "id": "t005-author-detail",
+      "name": "05 - Detalle de autor con sus libros",
+      "commands": [
+        {
+          "id": "c040",
+          "command": "open",
+          "target": "/authors/1",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c041",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Garcia Marquez"
+        },
+        {
+          "id": "c042",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Cien"
+        }
+      ]
+    },
+    {
+      "id": "t006-categories",
+      "name": "06 - Listado y detalle de categorias",
+      "commands": [
+        {
+          "id": "c050",
+          "command": "open",
+          "target": "/categories",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c051",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Novela"
+        },
+        {
+          "id": "c052",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Cuento"
+        },
+        {
+          "id": "c053",
+          "command": "open",
+          "target": "/categories/1",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c054",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Novela"
+        }
+      ]
+    },
+    {
+      "id": "t007-reviews",
+      "name": "07 - Listado de reviews es publico",
+      "commands": [
+        {
+          "id": "c060",
+          "command": "open",
+          "target": "/reviews",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c061",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Reviews"
+        },
+        {
+          "id": "c062",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='reviews-table']",
+          "targets": [["css=[data-testid='reviews-table']", "css:data-testid"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t008-login-user",
+      "name": "08 - Login como usuario normal",
+      "commands": [
+        {
+          "id": "c070",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c071",
+          "command": "assertText",
+          "target": "css=h1",
+          "targets": [["css=h1", "css"]],
+          "value": "regexp:.*Iniciar.*"
+        },
+        {
+          "id": "c072",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c073",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c074",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c075",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [["css=[data-testid='nav-profile']", "css:data-testid"]],
+          "value": "10000"
+        },
+        {
+          "id": "c076",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "user"
+        },
+        {
+          "id": "c077",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='logout-btn']",
+          "targets": [["css=[data-testid='logout-btn']", "css:data-testid"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t009-user-profile",
+      "name": "09 - Perfil de usuario muestra favoritos y compras",
+      "commands": [
+        {
+          "id": "c080",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c081",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c082",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c083",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c084",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c085",
+          "command": "click",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [["css=[data-testid='nav-profile']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c086",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Mi perfil"
+        },
+        {
+          "id": "c087",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='favorites-list']",
+          "targets": [["css=[data-testid='favorites-list']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c088",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='purchases-list']",
+          "targets": [["css=[data-testid='purchases-list']", "css:data-testid"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t010-add-favorite",
+      "name": "10 - Usuario puede agregar libro a favoritos",
+      "commands": [
+        {
+          "id": "c090",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c091",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c092",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c093",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c094",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c095",
+          "command": "open",
+          "target": "/books/2",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c096",
+          "command": "click",
+          "target": "css=[data-testid='btn-add-favorite']",
+          "targets": [["css=[data-testid='btn-add-favorite']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c097",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c098",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "favoritos"
+        }
+      ]
+    },
+    {
+      "id": "t011-buy-book",
+      "name": "11 - Usuario puede comprar un libro",
+      "commands": [
+        {
+          "id": "c100",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c101",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c102",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c103",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c104",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c105",
+          "command": "open",
+          "target": "/books/3",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c106",
+          "command": "click",
+          "target": "css=[data-testid='btn-buy']",
+          "targets": [["css=[data-testid='btn-buy']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c107",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c108",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Compra registrada"
+        }
+      ]
+    },
+    {
+      "id": "t012-login-admin",
+      "name": "12 - Login como admin y acceso a gestion de usuarios",
+      "commands": [
+        {
+          "id": "c110",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c111",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c112",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c113",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c114",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-users']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c115",
+          "command": "assertElementPresent",
+          "target": "css=[data-testid='nav-users']",
+          "targets": [["css=[data-testid='nav-users']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c116",
+          "command": "click",
+          "target": "css=[data-testid='nav-users']",
+          "targets": [["css=[data-testid='nav-users']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c117",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "admin"
+        },
+        {
+          "id": "c118",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "user"
+        }
+      ]
+    },
+    {
+      "id": "t013-admin-create-author",
+      "name": "13 - Admin puede crear un nuevo autor",
+      "commands": [
+        {
+          "id": "c120",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c121",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c122",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c123",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c124",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-users']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c125",
+          "command": "open",
+          "target": "/authors/create",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c126",
+          "command": "assertText",
+          "target": "css=h1",
+          "targets": [["css=h1", "css"]],
+          "value": "Nuevo autor"
+        },
+        {
+          "id": "c127",
+          "command": "type",
+          "target": "id=name",
+          "targets": [["id=name", "id"]],
+          "value": "Autor Creado con Selenium IDE"
+        },
+        {
+          "id": "c128",
+          "command": "type",
+          "target": "id=nationality",
+          "targets": [["id=nationality", "id"]],
+          "value": "Espanola"
+        },
+        {
+          "id": "c129",
+          "command": "type",
+          "target": "id=bio",
+          "targets": [["id=bio", "id"]],
+          "value": "Biografia de prueba creada desde Selenium IDE"
+        },
+        {
+          "id": "c130",
+          "command": "click",
+          "target": "css=[data-testid='author-form'] button[type='submit']",
+          "targets": [["css=[data-testid='author-form'] button[type='submit']", "css"]],
+          "value": ""
+        },
+        {
+          "id": "c131",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c132",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Autor creado correctamente"
+        },
+        {
+          "id": "c133",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Autor Creado con Selenium IDE"
+        }
+      ]
+    },
+    {
+      "id": "t014-admin-create-category",
+      "name": "14 - Admin puede crear una nueva categoria",
+      "commands": [
+        {
+          "id": "c140",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c141",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c142",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c143",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c144",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-users']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c145",
+          "command": "open",
+          "target": "/categories/create",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c146",
+          "command": "type",
+          "target": "id=name",
+          "targets": [["id=name", "id"]],
+          "value": "Categoria Selenium IDE"
+        },
+        {
+          "id": "c147",
+          "command": "type",
+          "target": "id=description",
+          "targets": [["id=description", "id"]],
+          "value": "Creada desde Selenium IDE"
+        },
+        {
+          "id": "c148",
+          "command": "click",
+          "target": "css=[data-testid='category-form'] button[type='submit']",
+          "targets": [["css=[data-testid='category-form'] button[type='submit']", "css"]],
+          "value": ""
+        },
+        {
+          "id": "c149",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c150",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "creada correctamente"
+        }
+      ]
+    },
+    {
+      "id": "t015-register-user",
+      "name": "15 - Registro de nuevo usuario",
+      "commands": [
+        {
+          "id": "c160",
+          "command": "open",
+          "target": "/register",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c161",
+          "command": "assertText",
+          "target": "css=h1",
+          "targets": [["css=h1", "css"]],
+          "value": "Registrarse"
+        },
+        {
+          "id": "c162",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "seleniumuser"
+        },
+        {
+          "id": "c163",
+          "command": "type",
+          "target": "id=email",
+          "targets": [["id=email", "id"]],
+          "value": "selenium@test.com"
+        },
+        {
+          "id": "c164",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "selenium1234"
+        },
+        {
+          "id": "c165",
+          "command": "type",
+          "target": "id=passwordConfirm",
+          "targets": [["id=passwordConfirm", "id"]],
+          "value": "selenium1234"
+        },
+        {
+          "id": "c166",
+          "command": "click",
+          "target": "css=form button[type='submit']",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c167",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c168",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Registro correcto"
+        }
+      ]
+    },
+    {
+      "id": "t016-login-wrong-password",
+      "name": "16 - Login con password incorrecto muestra error",
+      "commands": [
+        {
+          "id": "c170",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c171",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "admin"
+        },
+        {
+          "id": "c172",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "password_incorrecto"
+        },
+        {
+          "id": "c173",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c174",
+          "command": "pause",
+          "target": "2000",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c175",
+          "command": "assertLocation",
+          "target": "regexp:.*login.*",
+          "targets": [],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "t017-book-filter-title",
+      "name": "17 - Filtrar libros por titulo",
+      "commands": [
+        {
+          "id": "c180",
+          "command": "open",
+          "target": "/books",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c181",
+          "command": "type",
+          "target": "css=input[name='title']",
+          "targets": [["css=input[name='title']", "css"]],
+          "value": "Cien"
+        },
+        {
+          "id": "c182",
+          "command": "click",
+          "target": "css=form button[type='submit']",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c183",
+          "command": "pause",
+          "target": "1000",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c184",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Cien"
+        }
+      ]
+    },
+    {
+      "id": "t018-create-review",
+      "name": "18 - Usuario crea una review",
+      "commands": [
+        {
+          "id": "c190",
+          "command": "open",
+          "target": "/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c191",
+          "command": "type",
+          "target": "id=username",
+          "targets": [["id=username", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c192",
+          "command": "type",
+          "target": "id=password",
+          "targets": [["id=password", "id"]],
+          "value": "user"
+        },
+        {
+          "id": "c193",
+          "command": "click",
+          "target": "css=[data-testid='login-submit']",
+          "targets": [["css=[data-testid='login-submit']", "css:data-testid"]],
+          "value": ""
+        },
+        {
+          "id": "c194",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='nav-profile']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c195",
+          "command": "open",
+          "target": "/reviews/create",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "c196",
+          "command": "select",
+          "target": "id=bookId",
+          "targets": [["id=bookId", "id"]],
+          "value": "index=4"
+        },
+        {
+          "id": "c197",
+          "command": "type",
+          "target": "id=rating",
+          "targets": [["id=rating", "id"]],
+          "value": "5"
+        },
+        {
+          "id": "c198",
+          "command": "type",
+          "target": "id=comment",
+          "targets": [["id=comment", "id"]],
+          "value": "Review creada desde Selenium IDE - excelente libro recomendado"
+        },
+        {
+          "id": "c199",
+          "command": "click",
+          "target": "css=[data-testid='review-form'] button[type='submit']",
+          "targets": [["css=[data-testid='review-form'] button[type='submit']", "css"]],
+          "value": ""
+        },
+        {
+          "id": "c200",
+          "command": "waitForElementPresent",
+          "target": "css=[data-testid='flash-message']",
+          "targets": [],
+          "value": "10000"
+        },
+        {
+          "id": "c201",
+          "command": "assertTextPresent",
+          "target": "",
+          "targets": [],
+          "value": "Review creada correctamente"
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "s001-public-pages",
+      "name": "Suite 1 - Paginas publicas",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 30000,
+      "tests": [
+        "t001-home-page",
+        "t002-books-catalog",
+        "t003-book-detail",
+        "t004-authors-list",
+        "t005-author-detail",
+        "t006-categories",
+        "t007-reviews",
+        "t017-book-filter-title"
+      ]
+    },
+    {
+      "id": "s002-user-flows",
+      "name": "Suite 2 - Flujos de usuario autenticado",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 30000,
+      "tests": [
+        "t008-login-user",
+        "t009-user-profile",
+        "t010-add-favorite",
+        "t011-buy-book",
+        "t018-create-review",
+        "t016-login-wrong-password"
+      ]
+    },
+    {
+      "id": "s003-admin-flows",
+      "name": "Suite 3 - Flujos de administrador",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 30000,
+      "tests": [
+        "t012-login-admin",
+        "t013-admin-create-author",
+        "t014-admin-create-category"
+      ]
+    },
+    {
+      "id": "s004-registration",
+      "name": "Suite 4 - Registro de usuarios",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 30000,
+      "tests": [
+        "t015-register-user"
+      ]
+    }
+  ],
+  "urls": [
+    "http://localhost:8080"
+  ],
+  "plugins": []
+}

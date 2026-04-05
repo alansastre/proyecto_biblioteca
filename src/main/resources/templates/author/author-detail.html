@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${author.name}">Autor</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <section class="page-hero mb-4">
+            <h1 class="mb-2" th:text="${author.name}">Autor</h1>
+            <p class="section-subtitle mb-0">Consulta la ficha del autor y sus libros en el catálogo.</p>
+        </section>
+        <div class="surface-panel p-4 mb-4">
+            <dl class="row mb-0">
+                <dt class="col-sm-2">Nacionalidad</dt><dd class="col-sm-10" th:text="${author.nationality}"></dd>
+                <dt class="col-sm-2">Nacimiento</dt><dd class="col-sm-10" th:text="${author.birthDate}"></dd>
+                <dt class="col-sm-2">Biografía</dt><dd class="col-sm-10" th:text="${author.bio}"></dd>
+            </dl>
+        </div>
+        <h2>Libros</h2>
+        <ul class="list-group mb-4">
+            <li class="list-group-item" th:each="b : ${author.books}"><a th:href="@{/books/{id}(id=${b.id})}" th:text="${b.title}"></a></li>
+            <li class="list-group-item text-muted" th:if="${#lists.isEmpty(author.books)}">Este autor aún no tiene libros publicados en el catálogo.</li>
+        </ul>
+        <div class="d-flex gap-2 flex-wrap" th:if="${isAdmin}">
+            <a th:href="@{/authors/{id}/edit(id=${author.id})}" class="btn btn-secondary">Editar</a>
+            <form th:action="@{/authors/{id}/delete(id=${author.id})}" method="post" class="d-inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+        <p><a th:href="@{/authors}">Volver a autores</a></p>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

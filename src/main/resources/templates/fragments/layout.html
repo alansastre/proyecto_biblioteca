@@ -1,0 +1,33 @@
+<!-- layout.html — Base template: head, navbar, flash messages and footer -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title != null ? title + ' - Biblioteca' : 'Biblioteca'}">Biblioteca</title>
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Incluir el fragmento navbar definido en fragments/navbar.html -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-4">
+        <!-- Mensajes flash: se muestran una sola vez tras una redirección (RedirectAttributes) -->
+        <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <!-- Contenido específico de cada página -->
+        <div th:replace="${content}"></div>
+    </main>
+
+    <footer class="container text-muted small py-3">
+        <hr/>
+        <p class="mb-0">Biblioteca Digital — Spring Boot 4 + Java 25</p>
+    </footer>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

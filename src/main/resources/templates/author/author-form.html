@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${author.id != null} ? 'Editar autor' : 'Nuevo autor'">Autor</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <div class="surface-panel p-4">
+            <h1 th:text="${author.id != null} ? 'Editar autor' : 'Nuevo autor'">Formulario autor</h1>
+            <form th:action="@{${formAction}}" th:object="${author}" method="post" data-testid="author-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" required/>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="nationality" class="form-label">Nacionalidad</label>
+                    <input type="text" id="nationality" th:field="*{nationality}" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="birthDate" class="form-label">Fecha nacimiento</label>
+                    <input type="date" id="birthDate" th:field="*{birthDate}" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label">Biografía</label>
+                    <textarea id="bio" th:field="*{bio}" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a th:href="@{/authors}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Categorías</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <h1>Categorías</h1>
+        <form method="get" class="row g-2 mb-3">
+            <div class="col-auto"><input type="text" name="name" th:value="${param.name}" class="form-control" placeholder="Nombre"/></div>
+            <div class="col-auto"><button type="submit" class="btn btn-secondary">Filtrar</button></div>
+        </form>
+        <p th:if="${isAdmin}"><a th:href="@{/categories/create}" class="btn btn-primary">Nueva categoría</a></p>
+        <table class="table table-striped">
+            <thead><tr><th>Id</th><th>Nombre</th><th>Color</th><th th:if="${isAdmin}">Acciones</th></tr></thead>
+            <tbody>
+                <tr th:each="c : ${categories}">
+                    <td th:text="${c.id}"></td>
+                    <td><a th:href="@{/categories/{id}(id=${c.id})}" th:text="${c.name}"></a></td>
+                    <td><span class="badge" th:style="'background-color:' + ${c.color}" th:text="${c.color}"></span></td>
+                    <td th:if="${isAdmin}">
+                        <a th:href="@{/categories/{id}/edit(id=${c.id})}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                        <form th:action="@{/categories/{id}/delete(id=${c.id})}" method="post" class="d-inline">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

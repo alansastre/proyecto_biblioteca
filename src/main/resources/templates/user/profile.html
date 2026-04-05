@@ -1,0 +1,41 @@
+<!-- profile.html — User profile with favorites list and purchase history -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mi perfil</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <section class="page-hero mb-4">
+            <h1 class="mb-2">Mi perfil</h1>
+            <p class="section-subtitle mb-0">Tus libros favoritos y tu historial de compras.</p>
+        </section>
+        <p>Usuario: <strong th:text="${user.username}"></strong></p>
+
+        <!-- Favorite books -->
+        <h2>Mis favoritos</h2>
+        <ul class="list-group mb-4" data-testid="favorites-list">
+            <li class="list-group-item" th:each="b : ${favorites}">
+                <a th:href="@{/books/{id}(id=${b.id})}" th:text="${b.title}"></a>
+            </li>
+            <li class="list-group-item text-muted" th:if="${#lists.isEmpty(favorites)}">No tienes favoritos.</li>
+        </ul>
+
+        <!-- Historial de compras -->
+        <h2>Mis compras</h2>
+        <ul class="list-group" data-testid="purchases-list">
+            <li class="list-group-item" th:each="p : ${purchases}">
+                <a th:href="@{/books/{id}(id=${p.book.id})}"
+                   th:text="|${p.book.title} (${#temporals.format(p.purchasedAt, 'dd/MM/yyyy')})|"></a>
+            </li>
+            <li class="list-group-item text-muted" th:if="${#lists.isEmpty(purchases)}">No tienes compras.</li>
+        </ul>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

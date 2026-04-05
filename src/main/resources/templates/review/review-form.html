@@ -1,0 +1,58 @@
+<!-- review-form.html — Create/edit review with conditional book selector -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${review.id != null} ? 'Editar review' : 'Nueva review'">Review</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <main class="container my-4">
+        <div class="surface-panel p-4">
+            <h1 th:text="${review.id != null} ? 'Editar review' : 'Nueva review'">Formulario review</h1>
+
+            <form th:action="@{${formAction}}" th:object="${review}" method="post" data-testid="review-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+                    <p class="mb-0" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+                </div>
+
+                <!-- Al crear: selector de libro editable -->
+                <div class="mb-3" th:if="${review.id == null}">
+                    <label for="bookId" class="form-label">Libro</label>
+                    <select id="bookId" name="bookId" class="form-select" required>
+                        <option value="">-- Seleccionar libro --</option>
+                        <option th:each="b : ${books}" th:value="${b.id}" th:text="${b.title}"
+                                th:selected="${selectedBookId != null && selectedBookId == b.id}"></option>
+                    </select>
+                </div>
+
+                <!-- Al editar: título del libro (solo lectura) -->
+                <div class="mb-3" th:if="${review.id != null}">
+                    <label class="form-label">Libro</label>
+                    <p class="form-control-plaintext" th:text="${bookTitle != null ? bookTitle : '-'}"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Valoracion (1-5)</label>
+                    <input type="number" min="1" max="5" id="rating" th:field="*{rating}" class="form-control" required/>
+                    <p th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="text-danger"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comentario</label>
+                    <textarea id="comment" th:field="*{comment}" class="form-control" rows="3" required></textarea>
+                    <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="text-danger"></p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a th:href="@{/reviews}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </main>
+    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
