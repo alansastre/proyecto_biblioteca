@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test de integración para {@link AuthorRepository} usando {@code @DataJpaTest}.
+ Test
  *
  * <p>{@code @DataJpaTest} es un "test slice" de Spring Boot que:</p>
  * <ul>
