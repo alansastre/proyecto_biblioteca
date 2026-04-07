@@ -48,8 +48,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Desactivar CSRF para la consola H2 (usa iframes y formularios internos)
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")
+                )
+                // Permitir iframes de la consola H2 (usa frameset)
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                )
                 // Reglas de autorización: se evaluan en orden, la primera que coincide se aplica
                 .authorizeHttpRequests(auth -> auth
+                        // 0. Consola H2: accesible sin restricciones (solo desarrollo)
+                        .requestMatchers("/h2-console/**").permitAll()
                         // 1. Recursos públicos: accesibles sin autenticación
                         .requestMatchers("/", "/login", "/register", "/css/**", "/webjars/**", "/js/**").permitAll()
 
