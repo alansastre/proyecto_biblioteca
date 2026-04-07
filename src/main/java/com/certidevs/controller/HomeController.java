@@ -48,6 +48,6 @@ public class HomeController {
         model.addAttribute("bookCount", bookService.findAll().size());
         model.addAttribute("authorCount", authorService.findAll().size());
         model.addAttribute("categoryCount", categoryService.findAll().size());
-        return "index";
+        return "index"; // pantalla html
     }
 }
