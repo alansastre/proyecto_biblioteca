@@ -50,8 +50,7 @@ class BookTest {
         void builder_createsBookWithAllFields() {
             // Arrange + Act: creamos un libro con el Builder
             Author author = Author.builder().id(1L).name("Garcia Marquez").build();
-            Book book = Book.builder()
-                    .id(1L)
+            Book book = Book.builder().id(1L)
                     .title("Cien años de soledad")
                     .price(15.90)
                     .isbn("978-3-16-148410-0")

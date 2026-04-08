@@ -3,6 +3,7 @@
 Aplicación web completa de gestión de una biblioteca digital construida con **Java 25** y **Spring Boot 4.0.3**.
 Cubre la arquitectura en capas de Spring Boot y sirve como base para desarrollar proyectos similares.
 
+
 ## Stack tecnológico
 
 | Componente           | Tecnología                   | Versión   |
