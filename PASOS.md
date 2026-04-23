@@ -60,6 +60,8 @@ Se puede esperar a hacer las asociaciones cuando cada uno haya creado su entidad
 
 ## A futuro:
 
+* Más ejemplos de @Query en repositorios
+
 * Inicialización de datos:
   * Crear una clase @Component que implemente CommandLineRunner para cargar datos de ejemplo al iniciar la aplicación.
   * Alternativa: desde SQL creando un archivo data.sql en src/main/resources con sentencias INSERT para cargar datos.
@@ -69,6 +71,7 @@ Se puede esperar a hacer las asociaciones cuando cada uno haya creado su entidad
 
 nice to have:
 
+* Capa Service: entre el controlador y el repositorio para manejar la lógica de negocio. Por ejemplo, calcular el precio total de una reserva a partir del precio por noche y el número de noches, o validar que una película no se pueda eliminar si tiene sesiones programadas.
 * Filtros en listados (para mostrar solo las películas de un género, o solo las casas en una ciudad concreta)
 * Paginación y ordenación en los listados para manejar grandes cantidades de datos.
 * Más asociaciones.
@@ -78,3 +81,4 @@ nice to have:
   * Instalación nativa o vía Docker
 * API REST para que otras aplicaciones puedan consumir los datos de la tienda (por ejemplo, una app móvil). Esto implicaría crear controladores con @RestController y endpoints que devuelvan JSON en lugar de HTML.
 
+* Git y GitHub: ramas y Pull Requests.
